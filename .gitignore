@@ -1,5 +1,4 @@
 /data
 /venv
 
-mlflow_data/*
-!mlflow_data/.gitkeep
+mlflow_data/
