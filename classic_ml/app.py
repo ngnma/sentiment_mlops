@@ -4,8 +4,7 @@ from joblib import load
 from mangum import Mangum
 from pathlib import Path
 
-MODEL_PATH = Path(__file__).parent.parent / "model" / "classic_pipeline.joblib"
-
+MODEL_PATH = Path(__file__).parent / "model" / "classic_pipeline.joblib"
 app = FastAPI()
 pipeline = load(MODEL_PATH)  # loaded once, when the container starts
 
