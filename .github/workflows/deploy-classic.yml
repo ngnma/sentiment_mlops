@@ -6,6 +6,7 @@ on:
     paths:
       - 'classic_ml/**'
       - 'infra/classic_ml/**'
+      - 'requirements.txt'
 
 jobs:
   deploy:
