@@ -2,3 +2,6 @@
 /venv
 
 mlflow_data/
+
+**/.terraform/
+*.tfstate*
