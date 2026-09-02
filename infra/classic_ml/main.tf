@@ -1,3 +1,13 @@
+terraform {
+  backend "s3" {
+    bucket         = "sentiment-mlops-tfstate-pdne"
+    key            = "classic_ml/terraform.tfstate"
+    region         = "eu-west-2"
+    dynamodb_table = "sentiment-mlops-tf-lock"
+    encrypt        = true
+  }
+}
+
 provider "aws" {
   region = "eu-west-2"  # London region (picking a region close to you (or your target users) reduces latency.)
 }
