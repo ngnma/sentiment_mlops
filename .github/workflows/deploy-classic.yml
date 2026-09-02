@@ -8,6 +8,7 @@ on:
       - 'infra/classic_ml/**'
       - 'requirements.txt'
       - '.github/workflows/deploy-classic.yml'
+  workflow_dispatch:
 
 jobs:
   deploy:
