@@ -91,4 +91,30 @@ output "api_url" {
   value = aws_apigatewayv2_stage.default.invoke_url
 }
 
+# CloudWatch for monitoring
+resource "aws_sns_topic" "alerts" {
+  name = "sentiment-classic-alerts"
+}
 
+resource "aws_sns_topic_subscription" "email_alert" {
+  topic_arn = aws_sns_topic.alerts.arn
+  protocol  = "email"
+  endpoint  = "n.mashayekhi456@gmail.com"  
+}
+
+# watches the Errors metric for our specific Lambda function, and fires if there's more than 1 error (threshold = 1) within a 5-minute window (period = 300 seconds).
+resource "aws_cloudwatch_metric_alarm" "lambda_errors" {
+  alarm_name          = "sentiment-classic-error-rate"
+  comparison_operator = "GreaterThanThreshold"
+  evaluation_periods  = 1
+  metric_name         = "Errors"
+  namespace           = "AWS/Lambda"
+  period              = 300
+  statistic           = "Sum"
+  threshold           = 1
+  alarm_description   = "Triggers if the Lambda has any errors in a 5-minute window"
+  dimensions = {
+    FunctionName = aws_lambda_function.classic_ml.function_name
+  }
+  alarm_actions = [aws_sns_topic.alerts.arn]
+}

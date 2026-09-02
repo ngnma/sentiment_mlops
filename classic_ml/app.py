@@ -24,6 +24,9 @@ def predict(request: PredictRequest):
     label_index = proba.argmax()
     label = pipeline.classes_[label_index]
     score = float(proba[label_index])
+    
+    print(f"PREDICTION_LOG input={request.text!r} label={label} score={score:.4f}")
+
     return {"label": label, "score": score}
 
 
